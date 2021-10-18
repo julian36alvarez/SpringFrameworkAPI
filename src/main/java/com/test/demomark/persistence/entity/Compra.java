@@ -2,6 +2,7 @@ package com.test.demomark.persistence.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "compras")
@@ -22,6 +23,13 @@ public class Compra {
 
     private String comentario;
     private String estado;
+
+    @OneToMany(mappedBy = "productos")
+    private List<ComprasProducto> productos;
+
+    @ManyToOne
+    @JoinColumn(name = "id_cliente", insertable = false, updatable = false)
+    private Cliente cliente;
 
     public Integer getIdCompra() {
         return idCompra;
