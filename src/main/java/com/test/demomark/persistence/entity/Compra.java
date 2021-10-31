@@ -7,7 +7,6 @@ import java.util.List;
 @Entity
 @Table(name = "compras")
 public class Compra {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_compra")
@@ -24,12 +23,12 @@ public class Compra {
     private String comentario;
     private String estado;
 
-    @OneToMany(mappedBy = "productos")
-    private List<ComprasProducto> productos;
-
     @ManyToOne
     @JoinColumn(name = "id_cliente", insertable = false, updatable = false)
     private Cliente cliente;
+
+    @OneToMany(mappedBy = "producto")
+    private List<ComprasProducto> productos;
 
     public Integer getIdCompra() {
         return idCompra;
@@ -79,17 +78,19 @@ public class Compra {
         this.estado = estado;
     }
 
-    @Override
-    public String toString() {
-        return "Compra{" +
-                "idCompra=" + idCompra +
-                ", idCliente='" + idCliente + '\'' +
-                ", fecha=" + fecha +
-                ", medioPago='" + medioPago + '\'' +
-                ", comentario='" + comentario + '\'' +
-                ", estado='" + estado + '\'' +
-                '}';
+    public Cliente getCliente() {
+        return cliente;
     }
 
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 
+    public List<ComprasProducto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<ComprasProducto> productos) {
+        this.productos = productos;
+    }
 }
